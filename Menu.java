@@ -24,9 +24,13 @@ public class Menu {
             switch (choice){
                 case 1:
                     System.out.println("Insert the data");
+                    System.out.println("Enter the name of the student");
                     String name = obj.next();
+                    System.out.println("Enter the admission number of the student");
                     int admin = obj.nextInt();
+                    System.out.println("Enter the roll number of the student ");
                     int rollNo = obj.nextInt();
+                    System.out.println("Enter the college name of the student ");
                     String collegeName = obj.next();
                     try{
                         Class.forName("com.mysql.jdbc.Driver");
@@ -46,7 +50,7 @@ public class Menu {
                     //String sql = "INSERT INTO `students`(`name`, `admNo`, `rollNo`, `collage`) VALUES ('"+name+"','"+admin+"','"+rollNo+"','"+collegeName+"')";
                     break;
                 case 2:
-                    System.out.println("Select the student");
+                    System.out.println("View the details of the student");
                     try {
                         Class.forName("com.mysql.jdbc.Driver");
                         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_db", "root", "");
@@ -70,6 +74,28 @@ public class Menu {
                     break;
                 case 3:
                     System.out.println("Search the data");
+                    try {
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_db", "root", "");
+                        System.out.println("Enter the admission number of the student to be searched");
+                        int admno = obj.nextInt();
+                        String sql = "SELECT `name`, `admNo`, `rollNo`, `collage` FROM `students` WHERE `admNo`= "+String.valueOf(admno);
+                        Statement stmt = con.createStatement();
+                        ResultSet rs = stmt.executeQuery(sql);
+                        while (rs.next()){
+                            String getName = rs.getString("name");
+                            String getAdm = rs.getString("admNo");
+                            String getRoll = rs.getString("rollNo");
+                            String getCollege = rs.getString("collage");
+                            System.out.println("Name="+getName);
+                            System.out.println("Admission Number ="+getAdm);
+                            System.out.println("Roll Number="+getRoll);
+                            System.out.println("College="+getCollege+"\n");
+                        }
+                    }
+                    catch (Exception e){
+                        System.out.println((e));
+                    }
                     break;
                 case 4:
                     System.out.println("Update the data");
