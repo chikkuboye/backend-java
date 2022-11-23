@@ -99,9 +99,44 @@ public class Menu {
                     break;
                 case 4:
                     System.out.println("Update the data");
+                    System.out.println("Enter the admin number to be updating");
+                    admin = obj.nextInt();
+                    System.out.println("Enter the name to be updated");
+                    name = obj.next();
+                    System.out.println("Enter the admno");
+                    int admNumber = obj.nextInt();
+                    System.out.println("Enter the roll number");
+                    int RollNo = obj.nextInt();
+                    System.out.println("Enter the college name");
+                    collegeName = obj.next();
+                    try{
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_db", "root", "");
+                        String sql = "UPDATE `students` SET `name`='"+name+"',`admNo`='"+String.valueOf(admNumber)+"',`rollNo`='"+String.valueOf(RollNo)+"',`collage`='"+collegeName+"' WHERE `admNo`="+String.valueOf(admin);
+                        Statement stmt = con.createStatement();
+                        stmt.executeUpdate(sql);
+                        System.out.println("Updated successfully");
+
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
                     break;
                 case 5:
                     System.out.println("Delete the data");
+                    System.out.println("Enter the admission to be deleting ");
+                    admin = obj.nextInt();
+                    try {
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_db", "root", "");
+                        String sql = "DELETE FROM `students` WHERE `admNo`= " + String.valueOf(admin);
+                        Statement stmt = con.createStatement();
+                        stmt.executeUpdate(sql);
+                        System.out.println("Deleted successfully");
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
                     break;
                 case 6:
                     //break;
